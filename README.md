@@ -77,21 +77,18 @@ Five quizzes, one midterm exam, and one comprehensive R computer final exam will
 ## GRADING POLICIES
 Acceptable work on exams, quizzes and assignments will show solution steps, results, interpretations, conclusions, justifications, and other responses written in detail and presented in a concise, logical, and organized manner. Grading is based on the quality of thinking reflected in solutions as well as correctness of final results. Final grades are computed as follows:
  
-Quizzes
-Graded Assignments & Presentations 
-Attendance and Class Participation 5%
-Midterm Exam 25% 
-R Computer Exam 25%
+* Quizzes
+* Graded Assignments & Presentations 
+* Attendance and Class Participation 5%
+* Midterm Exam 25% 
+* R Computer Exam 25%
 
 
 
-1* MAT 150 Review: Statistics
-2* MAT 150 Review: Surveys & Expts
-3* MAT 150 Review: Data Description
-5* MAT 150 Review: Inferences about
-6* MAT 150 Review: Inferences about $\mu_1 - \mu_2$
-4.1* Introduction
-4.2* MAT 150 Review: Finding Probability
+| Chapter/Section | Description  |
+| --------------- | ------------ |
+| 4.1 			  | Introduction |
+| 4.2 			  | Finding Probability | 
 4.3 Prob. Laws
 4.4 Conditional Prob.
 4.4 Conditional Prob.
@@ -128,6 +125,5 @@ R Computer Exam 25%
 
 15.1* Introduction  
 15.2 ANOVA for a One–Way RCBD
-
 
 
