@@ -1,8 +1,7 @@
 # Introduction to Statistical Methods and Data Analysis
 
 ## COURSE DESCRIPTION
-This course focuses on the theoretical foundation and applications of probability and statistics with an emphasis on statistical analysis and interpretation. Topics include probability and probability distributions, sampling distributions, inferences based on proportion tests, Chi square, contingency tables, odds ratios, analysis of variance and multiple comparisons techniques, and analysis of variance for some commonly used experimental designs. At least one statistical software package will be used. Prerequisites: L6 or MAT 190 and MAT 150.
-
+This course focuses on the theoretical foundation and applications of probability and statistics with an emphasis on statistical analysis and interpretation. Topics include probability and probability distributions, sampling distributions, inferences based on proportion tests, Chi square, contingency tables, odds ratios, analysis of variance and multiple comparisons techniques, and analysis of variance for some commonly used experimental designs. At least one statistical software package will be used. Prerequisites: Intro. to Statistics and Calculus I
 
 ## COURSE OBJECTIVES
 In this course, you will learn the mathematics and applications of various statistical methods which include probability, categorical data analysis, and analysis of variance for some commonly used experimental designs. You will also learn to conduct statistical analyses in R (a language and environment for statistical computing and graphics), to interpret, organize, and explain your results and conclusions in written and verbal formats.
