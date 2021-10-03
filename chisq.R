@@ -103,40 +103,7 @@ round(chisq$observed - chisq$expected)
 # -----------------------
 # Deaths
 deaths = c(43, 76, 85,21,83)
-class(deaths)
-p_i = c(.15,.21,.18,.14,1-.15-.21-.18-.14)
+p_i = c(0.15, 0.21, 0.18, 0.14, 1-.15-.21-.18-.14)
 chisq.test(deaths,p=p_i)
 # -----------------------
 
-
-
-
-
-
-
-
-
-
-
-y = c(82,20,8,90)
-chisq.test(x,y)
-
-
-
-
-file_path = "http://www.sthda.com/sthda/RDoc/data/housetasks.txt"
-housetasks = read.delim(file_path, row.names = 1)
-glimpse(housetasks)
-head(housetasks)
-housetasks
-
-
-# Graphical display of contengency tables
-
-#Contingency table can be visualized using the function balloonplot() 
-# [in gplots package]. This function draws a graphical matrix where each 
-# cell contains a dot whose size reflects the relative magnitude of 
-# the corresponding component.
-
-#install.packages("gplots")
-library("gplots")
