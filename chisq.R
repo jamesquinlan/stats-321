@@ -4,7 +4,7 @@
 #' date:   2021-09-29
 #' ---
 
-# Categorical Experiments
+# CATEGORICAL EXPERIMENTS
 #' Experiments that result in categorical data
 #' are summarized by frequency counts per category
 #' Are these counts expected?
@@ -16,18 +16,35 @@
 #' - trials are independent
 #' - Sum of observed counts = n
 
-install.packages("vcd")
-library(vcd)
-data("Arthritis")
 
-library(tidyr)
-library(dplyr)
 
-Arthritis
-head(Arthritis)
-glimpse(Arthritis)
-order(Arthritis$Improved)
-table(Arthritis$Improved)
+# CHI-SQUARE GOODNESS OF FIT IN R
+#' To perform chi-square goodness of fit test in R.
+#'   1. Set x = observed count vector
+#'   2. Set p = expected (or assumed) probabilities
+#'   3. Use command chisq.text(x,p) 
+
+
+#' 10.29 Quality control department of a motorcycle company classifies new
+#' motorcycles according to the number of defective components per motorcycle.
+#' The historical probabilities of defective parts are (0.8,0.1,0.05,0.03,0.02).
+#' Improvements to production is hoped to lower number of defective parts.
+#' A random sample of 300 motorcycles shows observed number of defects are:
+#' (238,32,12,13,5).   
+
+n = 300
+O = c(238,32,12,13,5)
+probs = c(0.8, 0.1, 0.05, 0.03, 0.02)
+E = n*probs
+
+X = sum((O-E)^2/E)
+pval = 1- pchisq(X,4)
+
+# Note: We get same results using R's built-in function
+chisq.test(O, p=probs)
+
+
+
 
 # Example: 
 # -----------------------
@@ -36,7 +53,7 @@ x = c(89,18,12,81)       # Observed Counts
 p = c(.41,.1,0.04,0.45)  # Null Probabilities
 
 # Goodness of fit test
-chisq.test(x,p)
+chisq.test(x,p=p)
 # -----------------------
 
 
