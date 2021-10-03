@@ -25,7 +25,7 @@
 data = matrix(c(5,9,45,41), nrow = 2)
 fisher.test(data, alternative = "less")
 
-# Note: The alternative hypotesis is "less" than.  The other options for the 
+# Note: The alternative hypothesis is "less" than.  The other options for the 
 # alternative parameter of the fisher.test function are: "greater" and "two.sided"
 
 # We see the p-value = 0.194 > 0.05.  FAIL to reject H0.  
@@ -47,7 +47,7 @@ fisher.test(data, alternative = "less")
 #' Heterosexual      0                     20
 #' --------------------------------------------------
 #' 
-#' Is the proportion of young adults identifying as nonhetersexual higher for 
+#' Is the proportion of young adults identifying as nonheterosexual higher for 
 #' lesbian mothers than for heterosexual mothers at the 0.05 level?
 #' 
 #' NOTE: 0 cell count makes a large sample test impossible.  Thus, use Fisher's 
