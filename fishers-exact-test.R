@@ -7,7 +7,7 @@
 
 
 #' 10.21 - Sludge is dried sewage and is used as fertilizer.  However, it may 
-#' contain high levels of heavy medals.  A new method for detecting and removing
+#' contain high levels of heavy metals.  A new method for detecting and removing
 #' Nickel is developed.  A test is to be conducted to compare the old method to
 #' the new method.  See page 537 for complete details.  
 #' 
