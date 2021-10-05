@@ -18,6 +18,54 @@ mcnemar.test(Preferences)
 
 
 
+# 10.23
+
+Speech = matrix(c(1921,16,58,5), 
+                nrow = 2, 
+                dimnames = list("GMDS" = c("T","F"),
+                                "CDHMM" = c("T","F")));Speech
+
+
+# Switches
+n12 = Speech[1,2]
+n21 = Speech[2,1]
+
+# Tallys
+m = n12 + n21 
+n = sum(Speech)
+
+
+# Z-test can be used?
+if (m > 20){
+  z = (n12 - n21)/sqrt(n12+n21)
+  print(z)
+  p = 1-pnorm(z)
+  paste("p-value =",p)
+}else{
+  mcnemar.test(Speech)
+}
+
+
+
+SEmc = function(n12, n21,n){
+  # Calculate the SE for the McNemar Matched Pairs
+  # Use to build Confidence Intervals
+  SE = (1/n)*sqrt((n12+n21) - (1/n)*(n12-n21)^2)
+  return(SE)
+}
+
+# Calculate pi_1. and pi_.1
+pi_1. = sum(Speech[1,])
+pi_.1 = sum(Speech[,1])
+SEmc(n12,n21,n)
+
+
+
+
+
+
+
+
 # 10.21 (Not Matched Pairs)
 x1 = 5
 x2 = 9
