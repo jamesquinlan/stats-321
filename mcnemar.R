@@ -1,6 +1,24 @@
 # Chapter 10 
 
-# 10.21
+
+## Ott and Longnecker (2000), p. 537.
+## Candidate Preferences.
+##  Voter preferences before and after debate.
+Preferences =
+  matrix(c(28,6,13,28),
+         nrow = 2,
+         dimnames = list("Before" = c("A", "B"),
+                         "After"  = c("A", "B")))
+Preferences
+mcnemar.test(Preferences)
+## => no significant change to reject H0
+# }
+
+
+
+
+
+# 10.21 (Not Matched Pairs)
 x1 = 5
 x2 = 9
 n1 = 50
@@ -33,6 +51,9 @@ c2L
 c2U
 
 
+
+
+
 # Fishers Exact Test
 data = matrix(c(5,9,45,41),nrow=2)
 
@@ -41,15 +62,14 @@ fish
 
 
 
-## Ott and Longnecker (2000), p. 537.
-## Candidate Preferences.
-##  Voter preferences before and after debate.
-Preferences =
-  matrix(c(28,6,13,28),
-         nrow = 2,
-         dimnames = list("Before" = c("A", "B"),
-                         "After"  = c("A", "B")))
-Preferences
-mcnemar.test(Preferences)
-## => no significant change to reject H0
-# }
+
+
+
+
+# Chi-Squared test for independence
+df = data.frame(I=c(15, 8, 1), 
+                II=c(32, 29, 20), 
+                III=c(18,23,25), 
+                IV=c(5, 18, 22))
+df
+chisq.test(df)
