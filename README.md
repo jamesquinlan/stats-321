@@ -25,7 +25,7 @@ and Chi-square tests.
 underlying assumptions of ANOVA, and perform inferential hypothesis testing using both manual
 and computer methods of statistical analysis to include various multiple comparisons approaches.
 
-5. Construct statistical models for other ANOVA designs such as a  b factorial design and randomized
+5. Construct statistical models for other ANOVA designs such as axb factorial design and randomized
 complete block design, and perform inferential hypothesis testing using both manual and
 computer methods of statistical analysis.
 
@@ -84,45 +84,27 @@ Acceptable work on exams, quizzes and assignments will show solution steps, resu
 
 
 
-| Chapter/Section | Description  |
+| Chapter/Section| Description  |
 | --------------- | ------------ |
-| 4.1 			  | Introduction |
-| 4.2 			  | Finding Probability | 
-4.3 Prob. Laws
-4.4 Conditional Prob.
-4.4 Conditional Prob.
-4.5 Bayes’ Formula
-4.6 Discrete & Cont. Var.
-4.7 Prob. Dist. for Discrete RVs
-4.8 Binomial & Poisson Dist.
-4.9 Prob. Dist. for Cont. RVs
-4.10* Normal Dist. 
-4.15* Research Study
-
-10.1* Introduction
-10.2 Inferences about $\pi$
-10.3 Inferences about $\pi_1–pi_2$
-10.4 Goodness of Fit Test
-10.5 Tests for Ind.
-10.5 Tests for Hom. 
-10.7 Odds & Odds Ratios
-10.9* Research Study
-
-8.1* Introduction
-8.2 ANOVA
-8.3 ANOVA Model for a CRD 8.4 ANOVA Assumptions 
-8.7* Research Study
-
-9.1* Introduction 
-9.5 Tukey's W 
-9.7 Dunnett’s
-
-14.1* Introduction
-14.2* Review of ANOVA for a CRD
-14.3 a x b Factorials
-(do not skip Definition 14.2 on page 812)
-
-15.1* Introduction  
-15.2 ANOVA for a One–Way RCBD
-
+| 4.1 		  | Introduction |
+| 4.2 		  | Finding Probability | 
+| 4.3		  |  Prob. Laws |
+| 4.4		  | Conditional Prob. |
+| 4.5		  | Bayes' Formula |
+| 4.6		  | Discrete & Cont. Var.|
+| 4.7 		  | Prob. Dist. for Discrete RVs |
+| 4.8 		  | Binomial & Poisson Dist.|
+| 4.9 		  | Prob. Dist. for Cont. RVs|
+| 10.2 		  | Inferences about $\pi$ |
+| 10.3            | Inferences about $\pi_1–pi_2$ | 
+| 10.4		  | Chi-square Goodness of Fit Test |
+| 10.5 		  | Chi-square Tests for Indpedendence &  Homogeneity | 
+| 10.7		  |  Odds & Odds Ratios |
+| 8.2 		  | ANOVA |
+| 8.3		  |  ANOVA Model for a CRD |
+| 8.4		  | ANOVA Assumptions |  
+| 9.5		  |  Tukey's W | 
+| 9.7 		  |  Dunnett's |
+| 14.3		  | a x b Factorials |
+| 15.2		  |  ANOVA for a One–Way RCBD |
 
