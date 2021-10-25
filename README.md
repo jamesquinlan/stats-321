@@ -44,14 +44,19 @@ In addition, at the completion of this course, students will be able to demonstr
 
 
 ## Textbook
-Ott, R. L., & Longnecker, M. T. (2015).* An introduction to statistical methods and data analysis*. Cengage Learning.
+Ott, R. L., & Longnecker, M. T. (2015). *An introduction to statistical methods and data analysis*. Cengage Learning.
 
 
 @book{ott2015introduction,
+
   title={An introduction to statistical methods and data analysis},
+
   author={Ott, R Lyman and Longnecker, Micheal T},
+
   year={2015},
+
   publisher={Cengage Learning}
+
 }
 
 
