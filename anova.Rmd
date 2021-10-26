@@ -1,0 +1,192 @@
+---
+title: "One-way Analysis of Variance in R"
+author: "James Quinlan"
+date: "10/21/2021"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## ANOVA in R
+
+ANalysis Of Variance (ANOVA or AOV) is used to determine if the means of two or more groups are the same.  That is, the goal is to test the hypothesis that the means are equal for all groups.
+That is, 
+\[
+H_0: \mu_1 = \mu_2 = \dots = \mu_k
+\]
+The alternative hypothesis states that at least one is different. 
+\[
+H_1: \mu_i \ne \mu_j \; \exists i \ne j. 
+\]
+
+
+
+### Set up 
+Before we begin, let's set the working directory and load libraries.  
+
+#### Load Libraries
+Load the `tidyverse` library.  
+```{r, echo=TRUE}
+library(tidyverse)
+```
+
+
+
+### Data
+
+In this article, we will use a data set that contains information on 78 people using one of three diets to determine which diet is best for losing weight. We test to see if there is a difference in average weight loss between the three different diets. This data is obtained from the [Mathematics and Statistics Help (MASH) site](https://www.sheffield.ac.uk/mash/statistics/datasets) at the University of Sheffield.  Download and save to the current working directory.
+Obtain the path to the working directory using the command `getwd()`.  Set the 
+working directory with the function `setwd()`. 
+
+```{r, echo=FALSE}
+folder = '/data/'
+```
+
+For data wrangling see: https://dplyr.tidyverse.org/
+
+```{r}
+# Load the data
+raw = read_csv(paste(getwd(),folder,'diet.csv',sep=''))
+```
+```{r}
+Data = raw %>% 
+  mutate(Loss = pre.weight - weight6weeks) %>%
+  select(Diet,Loss)
+```
+
+```{r}
+attach(Data)
+# Don't forget to detach("Data")
+```
+
+Convert the `Diet` variable to a factor.  
+```{r}
+Data$Diet = as.factor(Data$Diet)
+```
+
+Below some basic descriptive statistics and a plot (made with the {ggplot2} package) of our dataset before we proceed to the goal of the ANOVA:
+
+ Below some basic descriptive statistics and a plot (made with the {ggplot2} package) of our dataset before we proceed to the goal of the ANOVA:
+
+ 
+ 
+```{r}
+ggplot(Data) +
+  aes(x = Diet, y = Loss, color = Diet) +
+  geom_jitter() +
+  theme_classic()
+```
+ 
+We can also look at a boxplot.  When we check for homogeneity we will revisit the boxplot.
+
+```{r}
+# Boxplot
+boxplot(Loss ~ Diet,
+  data = Data,
+  main = "Weight Loss",
+  xlab = "Diet",
+  ylab = "Loss",
+  col = "steelblue",
+  border = "black"
+)
+```
+ 
+```{r}
+summary(Loss)
+```
+ 
+
+
+```{r}
+Data %>% 
+  group_by(Diet) %>% 
+  summarize(
+    min = min(Loss), 
+    q1 = quantile(Loss, 0.25), 
+    median = median(Loss), 
+    mean = mean(Loss), 
+    q3 = quantile(Loss, 0.75), 
+    max = max(Loss)
+  )
+
+# Alternatively
+# tapply(Data$Loss, Data$Diet, summary)
+```
+We see Diet 3 seems to be the best with both the largest average weight lost and maximum weight lost.  In addition, Diet 1 and 2 saw some weight gain.  
+
+
+
+
+### Assumptions of ANOVA
+
+As usual with statistical tests, some assumptions must be satisfied before the findings can be interpreted. Although it is theoretically feasible to execute these tests when one or more assumptions are not satisfied, it would be erroneous to interpret the findings and believe the conclusions. 
+
+The following are the ANOVA assumptions, how to test them, and what alternate tests are available if an assumption is not met:
+
+
+- **Variable Types**: One-way ANOVA involves a continuous quantitative dependent variable (corresponding to the measurements in the inquiry) and a qualitative independent variable (with at least 2 levels that will serve as the comparison groups). 
+
+
+- **Independence**: The data should be independent across groups and within each group, acquired from a representative and randomly selected fraction of the overall population. Rather than a formal test, the assumption of independence is frequently validated based on the experiment design and excellent control of experimental variables. If you are still not confident about independence based on the experiment design, consider if one observation is connected to another (or whether one observation has an influence on another) inside each group or between groups. If you do not, you very certainly have independent samples. If the observations between samples (forming the different groups to be compared) are dependent (for example, if three measurements were taken on the same person, as is often the case in medical studies when measuring a metric I before, (ii) during, and (iii) after a treatment), the repeated measures ANOVA should be used to account for the dependency between the samples. 
+
+
+- **Normality**: Residuals should have a normal distribution in general. A histogram and a QQ-plot may be used to test the normality assumption _visually_, and a normality test such as the Shapiro-Wilk or Kolmogorov-Smirnov can be used as a analytic test. If the residuals still do not follow a normal distribution following a transformation (e.g., logarithmic transformation, square root, Box-Cox, etc. ), the Kruskal-Wallis test (Kruskal.test(variable group, data = data in R) can be used. This non-parametric test, resistant to non-normal distributions, has the same purpose as the ANOVA: to compare three or more groups, but it compares groups using sample medians rather than sample means. 
+
+**Homoscedasticity** (or homogeneity of the variances):  in populations, the variances of distinct groups should be equal. This assumption may be verified graphically (by comparing the dispersion in a boxplot or dot plot, for example) or more formally (by using the Levene's test (Levene test(variable g) from the car package) or Bartlett's test, for example). If the equal variance hypothesis is rejected, another ANOVA may be used: the Welch ANOVA (oneway.test(variable group, var.equal = FALSE)). Although the Welch ANOVA does not need homogeneity among the variances, the distributions should still follow a normal pattern. It is worth noting that the Kruskal-Wallis test does not need normalcy or homoscedasticity of variances. 
+
+**No Outliers**: An outlier is a value or observation that differs significantly from the others. If there are any significant outliers in the different groups, your ANOVA results may be skewed. There are various approaches for detecting outliers in your data, but you must choose one of the following to deal with them: 
+
+  * use a non-parametric variant (i.e., the Kruskal-Wallis test)
+  
+  * transform your data (e.g., logarithmic or Box-Cox transformations) 
+  
+  * delete them 
+  
+Choosing the right test based on whether or not assumptions are satisfied might be complex, so here's a quick rundown: 
+
+
+* Verify the observations are independent by checking the design of the study 
+* Test the normality of residuals 
+* If normal residuals, test the homogeneity of the variances 
+  - If variance are equal then use ANOVA 
+  - If unequal variances, then use the Welch ANOVA 
+* If not normally distributed residuals, then use the Kruskal-Wallis test 
+
+Now that we have examined the ANOVA's underlying assumptions, we will go through them again with our dataset in mind before using the proper form of the test.
+
+
+
+1. __Independence__ – the observations in each group need to be independent of each other. Since we used a randomized design (i.e. we assigned participants to the exercise programs randomly), this assumption should be met so we don’t need to worry too much about this.
+
+2. __Normality__ – the dependent variable should be approximately normally distributed for each level of the predictor variable. 
+
+3. __Equal Variance__ – the variances for each group are equal or approximately equal.
+
+
+
+
+```{r}
+#fit the one-way ANOVA model
+model = aov(Loss ~ Diet, data = Data)
+
+#view the model output
+#summary(model)
+```
+
+```{r}
+summary(model)
+```
+
+Test the independence of observations.  If `DW` is between 1.5 and 2.5 then autocorrelation is likely not a cause for concern.  The Durbin-Watson test uses the following hypotheses:
+H0 (null hypothesis): There is no correlation among the residuals.
+HA (alternative hypothesis): The residuals are autocorrelated.
+
+```{r, echo=FALSE}
+library(lmtest)    # linear model tests
+dwtest(model)      # Durbin-Watson test  
+# plot(model)
+```
