@@ -2,7 +2,9 @@
 title: "One-way Analysis of Variance in R"
 author: "James Quinlan"
 date: "10/21/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 
@@ -75,7 +77,7 @@ library(tidyverse)
 
 
 
-### Data
+### Data: Load, Clean, Wrangle
 
 In this article, we will use a data set that contains information on 78 people using one of three diets to determine which diet is best for losing weight. We test to see if there is a difference in average weight loss between the three different diets. This data is obtained from the [Mathematics and Statistics Help (MASH) site](https://www.sheffield.ac.uk/mash/statistics/datasets) at the University of Sheffield.  Download and save to the current working directory.
 Obtain the path to the working directory using the command `getwd()`.  Set the 
@@ -175,21 +177,8 @@ boxplot(Loss ~ Diet,
  
  
 
-```{r}
-hist(Data$Loss,
-  xlab = "Loss",
-  main = "Histogram of Loss",
-  breaks = sqrt(nrow(Data))
-) # set number of bins
-```
 
 
-```{r}
-ggplot(Data) +
-  aes(x = Loss) +
-  geom_histogram(bins = 10, fill = "#0c4c8a") +
-  theme_minimal()
-```
 
 
   
@@ -211,17 +200,60 @@ Choosing the right test based on whether or not assumptions are satisfied might 
 
 
 
-Lets examine ANOVA's underlying assumptions for our particular dataset.
+Lets examine the underlying assumptions of our particular dataset one by one.
 
 
 
 1. __Independence__ – the observations in each group need to be independent of each other. Since we used a randomized design (i.e. we assigned participants to the exercise programs randomly), this assumption should be met so we don’t need to worry too much about this.
 
-2. __Normality__ – the dependent variable should be approximately normally distributed for each level of the predictor variable. 
+
+ANOVA assumes:
+
+    The observations in each group are independent of the observations in every other group.
+    The observations within each group were obtained by a random sample.
+
+How to check this assumption:  Durbin-Watson test (see below after running the ANOVA model).
+
+
+
+
+
+NOTE: Chi-square Test for Independence is not appropriate because both variables are not categorical.
+
+
+
+
+
+### __Normality Tests__
+
+
+the dependent variable should be approximately normally distributed for each level of the predictor variable. 
 
 <!-- 
 https://statsandr.com/blog/do-my-data-follow-a-normal-distribution-a-note-on-the-most-widely-used-distribution-and-how-to-test-for-normality-in-r/#normality-test  
 -->
+
+
+```{r}
+hist(Data$Loss,
+  xlab = "Loss",
+  main = "Histogram of Loss",
+  breaks = sqrt(nrow(Data))
+) # set number of bins
+```
+
+
+
+```{r}
+ggplot(Data) +
+  aes(x = Loss) +
+  geom_histogram(bins = 10, fill = "#336699") +
+  theme_minimal()
+```
+
+
+
+
 
 ```{r}
 # Draw points on the qq-plot:
@@ -246,22 +278,81 @@ ggplot(Data) +
 
 
 
-#### Normality Tests
+#### Shapiro-Wilk's Test for Nomrality
+
 Shapiro-Wilk's and Kolmogorov-Smirnov are two statistical tests of normality.  The null hypothesis is, 
 \[
 H_0: \text{the data is normally distributed}
 \]
-Of course, the alterative is $H_1$: the data is **not** normally distributed.  Here we employ the Shapiro-Wilk test.
+Of course, the alterative hypothesis is, $H_1$: the data is **not** normally distributed.  Here we employ the Shapiro-Wilk test.  <!--  Shapiro-Wilk test is known to have better power than Kolmogorov-Smirnov test.  -->
 
 ```{r}
 shapiro.test(Data$Loss)
 ```
 
-3. __Equal Variance__ – the variances for each group are equal or approximately equal.
 
 
 
-### Outliers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Homoscedasticity   
+
+ANOVA assumes homogeneity in the population variances, that is, variances are equal.
+How to check this assumption in R:
+
+We can check this assumption in R using:
+
+* Numerically with summary data
+
+
+```{r}
+cbind(var(Group1$Loss), var(Group2$Loss), var(Group3$Loss))
+```
+
+
+
+* Visually using plots(i.e., boxplots).
+
+```{r}
+boxplot(Loss ~ Diet)
+```
+
+* Formal test statistic (i.e., See Bartlett’s Test below).
+
+
+#### Bartlett’s Test.
+
+Create box plots that show distribution of weight loss for each group
+
+```{r}
+bartlett.test(Loss ~ Diet, data=Data)
+```
+
+
+
+
+
+
+
+
+
+
+### __Outliers__
 <!-- Source: https://statsandr.com/blog/outliers-detection-in-r/ -->
 
 Statistical tests for outliers include: Grubb's test, Dixon's test (small samples $n \le 25$), and Rosner's test (detect multiple outliers).
@@ -283,8 +374,11 @@ test.outliers = grubbs.test(Data$Loss)
 test.outliers
 ```
 
-
-
+```{r}
+OUT = boxplot.stats(Group1$Loss)$out
+todrop = which(Data$Loss > 8.49 & Data$Diet == 1)
+#Data2 <- Data[-todrop,]
+```
 
 
 
@@ -316,11 +410,15 @@ model = aov(Loss ~ Diet, data = Data)
 summary(model)
 ```
 
+
+
+
 Test the independence of observations.  If `DW` is between 1.5 and 2.5 then autocorrelation is likely not a cause for concern.  The Durbin-Watson test uses the following hypotheses:
 H0 (null hypothesis): There is no correlation among the residuals.
 HA (alternative hypothesis): The residuals are autocorrelated.
 
-```{r, echo=FALSE}
+```{r}
+# install.packages("lmtest")
 library(lmtest)    # linear model tests
 dwtest(model)      # Durbin-Watson test  
 # plot(model)
