@@ -294,7 +294,7 @@ We see Diet 3 seems to be the "best" with both the largest average weight lost a
 
 ### __Variable Types__
 
-Weight loss is a continuous quantitative dependent variable and diet is the independent categorical variable with at least levels.  
+Weight loss is a continuous quantitative dependent variable and diet is the independent categorical variable with at least three levels.  
 
 
 ### __Independent Observations__
@@ -327,10 +327,11 @@ where:
 * `two-sided`: Logical value indicating if there is a need to treat this test as two-sided
 
 The hypotheses for Grubb's Test are:
-```
-  $H_0$: There is NO outlier in the data.
-  $H_1$: There IS an outlier in the data.
-```
+
+*  $H_0$: There is NO outlier in the data.
+
+*  $H_1$: There IS an outlier in the data.
+
 
 The boxplots in our EDA indicate only Diet 1 has potential outliers.  We will perform Grubb's Test on Diet 1 data. The p-values are calculated using `qgrubbs` function.
 ```{r}
@@ -418,7 +419,7 @@ shapiro.test(Group1$Loss)
 shapiro.test(Group2$Loss)
 shapiro.test(Group3$Loss)
 ```
-Although the p-value of Group 1 is near $0.05$, each test resulted in a p-value $> 0.05$, therefore, we fail to reject the null hypothesis of no outliers.  
+Since p-values are all greater than 0.05, we fail to reject the null hypothesis.  
 
 
 
@@ -539,7 +540,8 @@ The critical value of $F_\alpha$ at the $\alpha = 0.05$ level is is $3.119$ with
 
 * Dependent variable is quantitative and the independent variable is categorical with at least 3 levels (if only two levels, use Student's t-test).
 
-* Fisher's F Statistic is used the criteria to reject the null hypothesis given several assumptions are satisfied.  F = MSR/MSE.
+* Fisher's F Statistic is used the criteria to reject the null hypothesis given several assumptions are satisfied.  
+  - The F test statistic formula is, F = MSR/MSE.
 
 * The assumptions for the statistical model state that the observations are:
   - Independent
@@ -551,7 +553,7 @@ The critical value of $F_\alpha$ at the $\alpha = 0.05$ level is is $3.119$ with
   1. Verify the observations were randomly selected.
   2. Run a Shapiro-Wilk's Test to test normality
   3. Run Barrlett's test for equality of variance
-  4. Look at box and whisker's plot and run Grubb's test for outliers.  Remove them if present.  s
+  4. Look at box and whisker's plot and run Grubb's test for outliers.  Remove them if present.
   
 * Reject the null hypothesis if F test statistic is greater than the critical value at the given significance level.
 
