@@ -328,9 +328,9 @@ where:
 
 The hypotheses for Grubb's Test are:
 
-*  $H_0$: There is NO outlier in the data.
+* $H_0$: There is NO outlier in the data.
 
-*  $H_1$: There IS an outlier in the data.
+* $H_1$: There IS an outlier in the data.
 
 
 The boxplots in our EDA indicate only Diet 1 has potential outliers.  We will perform Grubb's Test on Diet 1 data. The p-values are calculated using `qgrubbs` function.
@@ -493,7 +493,7 @@ We fail to reject the null hypothesis (equal variance).
 
 
 
-
+---
 
 
 
