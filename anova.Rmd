@@ -221,7 +221,7 @@ attach(Data)    # Don't forget to detach("Data") to avoid conflicts
 
 
 
-
+<h5 id="eda"></h5>
 ### Exploratory Data Analysis (EDA)
 Developed by John Tukey in the 1970s, EDA is used to investigate data and summarize their main characteristics, often employing data visualization methods [5].  Before proceeding with statistical tests and analysis, let's look at summary statistics and visualizations.  
 
@@ -287,7 +287,19 @@ We see Diet 3 seems to be the "best" with both the largest average weight lost a
 
 
 
+## Assumption Verification
 
+<!-- https://www.statology.org/anova-assumptions/ -->
+
+
+### __Variable Types__
+
+Weight loss is a continuous quantitative dependent variable and diet is the independent categorical variable with at least levels.  
+
+
+### __Independent Observations__
+
+We will assume, without verification, that the design of experiment was such that participants were random selection and randomly assignment to each diet.  
 
 
 ### __Outliers__
@@ -297,12 +309,12 @@ https://www.statology.org/grubbs-test-r/
 -->
 
 
-Let's check for outliers first since if present, we can remove them before checking the other assumptions.  Statistical tests for outliers include: Grubb's test, Dixon's test (small samples $n \le 25$), and Rosner's test (detect multiple outliers).
+Let's check for outliers next since if present, we can remove them before checking the other assumptions.  The boxplot in <a href="#eda">EDA</a> suggests Diet 1 has two outliers.  Statistical tests for outliers include: Grubb's test, Dixon's test (small samples $n \le 25$), and Rosner's test (detect multiple outliers).
 
 
 #### Grubb's Test
 
-We can use `grubbs.test()` function from the Outliers package to test if the single higest value is an outlier [1].  The function takes several parameters (see `?grubbs.test`): 
+We can use `grubbs.test()` function from the `outliers` package to test if the single highest value is an outlier [1].  The function takes several parameters (see `?grubbs.test`): 
 
 ```
 grubbs.test(x, type = 10, opposite = FALSE, two.sided = FALSE)
@@ -340,8 +352,7 @@ Data2 <- Data[-todrop,]
 
 
 
-### __Normality Tests__
-
+### __Normality__
 
 The dependent variable should be approximately normally distributed for each level of the predictor variable. 
 
@@ -407,7 +418,7 @@ shapiro.test(Group1$Loss)
 shapiro.test(Group2$Loss)
 shapiro.test(Group3$Loss)
 ```
-
+Although the p-value of Group 1 is near $0.05$, each test resulted in a p-value $> 0.05$, therefore, we fail to reject the null hypothesis of no outliers.  
 
 
 
@@ -456,11 +467,11 @@ Bartlett’s Test uses the following null and alternative hypotheses:
 * $H_1$: At least one group has a variance that is not equal to the rest.
 
 
-In R,
+In R, Bartlett's test for equal variance is,
 ```{r}
 bartlett.test(Loss ~ Diet, data=Data)
 ```
-
+We fail to reject the null hypothesis (equal variance).
 
 
 
