@@ -406,7 +406,7 @@ ggplot(data = Data, aes(sample = Loss, col = Diet)) +
 
 ```
 
-By inspection of these plots, it appears that the  Diet 2 distribution is approximately normal. Diet 1 has a pronounced hump on the right and Diet 3 is skewed to the left. In the case of Diet 1 in particular, we can see the effect of the  two outliers reflected in all three plots. So we may have reason to question whether Diet 1 and Diet 3 are normally distributed. On the other hand, the apparent deviation from normality could have happened by chance - the result of sampling variation. This suggests a hypothesis test, which can tell us that likelihood.
+By inspection of these plots, it appears that the  Diet 2 distribution is approximately normal. Diet 1 has a pronounced hump on the right and Diet 3 is skewed to the left. In the case of Diet 1 in particular, we can see the effect of the  two outliers reflected in all three plots. So we may have reason to question whether Diet 1 and Diet 3 are normally distributed. On the other hand, the apparent deviation from normality could have happened by chance - the result of sampling variation. This suggests  a hypothesis test, which can tell us that likelihood.
 
 #### Shapiro-Wilk's Test for Normality
 
