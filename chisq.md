@@ -23,6 +23,7 @@ The situations describe above have characteristics of the multinomial  experimen
 ## Pearson's Chi Square Test Statistic
 
 Given $n$ observations with $k$ categories, each with probability $p_i$ so that $\sum p_i = 1$, the expected number of observations in category $i$ is $E_i = np_i$.  The number of observed counts by category (cells, buckets) is $O_i$, then Pearson's Chi Square Test Statistic is given by
+
 $$
 \chi^2 = \sum_{i = 1}^k \frac{(O_i - E_i)^2}{E_i}
 $$
