@@ -86,6 +86,7 @@ In the examples above, we tested "goodness-of-fit".  When given __bivariate__ da
 
 
 The two-way classification has $m \times n$ cells.  The rows (and columns) are associated with factors.  The probability an observation falls into row $i$ and column $j$ is $p_{ij}$.  Because of independence, 
+
 $$ p_{ij} = p_i p_j $$
 
 where the marginal probability (or unconditional probability) $p_i$ is given by the total observations in row $i$ divided by the total number of observations $n$, (similar for $p_j$).  That is, let $r_i = $ row sum of $i$th row and $c_j = j$th column sum.  Then the _expected_ cell count is
@@ -96,9 +97,11 @@ $$
 
 
 ### Chi-square test statistic
+
 $$
 \chi^2 = \sum_{i = 1}^k \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
 $$
+
 with degrees of freedom $df = (r-1)(c-1)$.  
 
 
