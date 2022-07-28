@@ -23,9 +23,9 @@ The situations describe above have characteristics of the multinomial  experimen
 ## Pearson's Chi Square Test Statistic
 
 Given $n$ observations with $k$ categories, each with probability $p_i$ so that $\sum p_i = 1$, the expected number of observations in category $i$ is $E_i = np_i$.  The number of observed counts by category (cells, buckets) is $O_i$, then Pearson's Chi Square Test Statistic is given by
-\[
+$$
 \chi^2 = \sum_{i = 1}^k \frac{(O_i - E_i)^2}{E_i}
-\]
+$$
 
 
 ## How to use Chi-Square in R?
@@ -85,19 +85,19 @@ In the examples above, we tested "goodness-of-fit".  When given __bivariate__ da
 
 
 The two-way classification has $m \times n$ cells.  The rows (and columns) are associated with factors.  The probability an observation falls into row $i$ and column $j$ is $p_{ij}$.  Because of independence, 
-\[ p_{ij} = p_i p_j \]
+$$ p_{ij} = p_i p_j $$
 
 where the marginal probability (or unconditional probability) $p_i$ is given by the total observations in row $i$ divided by the total number of observations $n$, (similar for $p_j$).  That is, let $r_i = $ row sum of $i$th row and $c_j = j$th column sum.  Then the _expected_ cell count is
 
-\[
+$$
 E_{ij} = n \frac{r_i}{n}\frac{c_j}{n} = \frac{r_ic_j}{n} .
-\]
+$$
 
 
 ### Chi-square test statistic
-\[
+$$
 \chi^2 = \sum_{i = 1}^k \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
-\]
+$$
 with degrees of freedom $df = (r-1)(c-1)$.  
 
 
