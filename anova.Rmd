@@ -4,7 +4,7 @@ title: "One-way Analysis of Variance in R"
 
 
 
-In this article we will examine the affect of diet on weight loss (<a href="#case">case study</a>) using analysis of variance.  First, we cover some <a href="#background">background information</a> including the <a href="#assumptions">model assumptions</a>, and <a href="#fishers">Fisher's</a> Test statistic.  
+In this article, we will examine the effect of diet on weight loss (<a href="#case">case study</a>) using analysis of variance.  First, we cover some <a href="#background">background information</a> including the <a href="#assumptions">model assumptions</a>, and <a href="#fishers">Fisher's</a> Test statistic.  
 
 
 
@@ -13,10 +13,10 @@ In this article we will examine the affect of diet on weight loss (<a href="#cas
 <h5 id="background"></h5>
 ## Background
 
-ANalysis Of Variance (ANOVA or AOV) generalizes the $t$-test to 3 or more groups.  That is, ANOVA is used to determine if the means of two or more groups are the same.  Technically, ANOVA can be used for 2 groups, but in practice, if two groups, use Student t-test.
+ANalysis Of Variance (ANOVA or AOV) generalizes the $t$-test to 3 or more groups.  ANOVA is used to determine if the means of two or more groups are the same.  Technically, ANOVA can be used for two groups, but in practice, if two groups use Student t-test.
 
-This article specifically addresses one-way ANOVA. There many 'ANOVAs' (e.g., two-way ANOVA, Welch ANOVA, repeated sample ANOVA, etc.).  _One-way layout_ is an experimental design in which independent measurements are made under each of the several treatments.  Let $y_{ij}=$ the $j$th observation of the $i$th treatment. 
-These observations are corrupted by random errors.  The statistical model is
+This article specifically addresses one-way ANOVA. There are many 'ANOVAs' (e.g., two-way ANOVA, Welch ANOVA, repeated sample ANOVA, etc.).  _One-way layout_ is an experimental design in which independent measurements are made under each of the several treatments.  Let $y_{ij}=$ the $j$th observation of the $i$th treatment. 
+Random errors corrupt these observations.  The statistical model is
 \[
 y_{ij} = \mu + \tau_i + \epsilon_{ij}
 \]
@@ -28,7 +28,7 @@ where $\mu$ is the overall mean, $\tau_i = \mu_i - \mu$ is the differential effe
 <h5 id="assumptions"></h5>
 ### Assumptions of ANOVA
 
-As usual with statistical tests, several assumptions must be satisfied before the findings can be interpreted. Although it is theoretically feasible to execute these tests when one or more assumptions are not satisfied, be careful interpreting the findings and stating conclusions. 
+As usual with statistical tests, several assumptions must be satisfied before interpreting the findings. Although it is theoretically feasible to execute these tests when one or more assumptions are not satisfied, be careful interpreting the findings and stating conclusions. 
 
 
 The following are the ANOVA assumptions, how to test them, and what alternate tests are available if an assumption is not met:
@@ -38,22 +38,22 @@ The following are the ANOVA assumptions, how to test them, and what alternate te
 
 
 
-- **Independence**: The data should be independent across groups and within each group.  Observations should not influence each other (e.g., a husband and wife probably will affect the outcome of the other).  Another example of dependence is when multiple observations are of the same person, as with medical studies, in which repeated measures ANOVA should be conducted instead.
+- **Independence**: The data should be independent across and within each group.  Observations should not influence each other (e.g., a husband and wife probably will affect the outcome of the other).  Another example of dependence is when multiple observations are of the same person, as with medical studies, in which repeated measures ANOVA should be conducted instead.
 
 
 
-- **Normality**: Sample data should be normal distributed. _Visually_ check the normality assumption with a histogram or a QQ-plot.  A  normality test such as the _Shapiro-Wilk_ or _Kolmogorov-Smirnov_ can be used as an analytic test.  If the residuals still do not follow a normal distribution even after a transformation such as a logarithmic transformation, use a non-parametric test resistant to non-normal distributions.   In particular, the Kruskal-Wallis test: `Kruskal.test(group, data = Data)` has the same purpose as the ANOVA: to compare three or more groups. However, it compares groups using sample medians rather than sample means. 
+- **Normality**: Sample data should be normally distributed. _Visually_ check the normality assumption with a histogram or a QQ-plot.  A  normality test such as the _Shapiro-Wilk_ or _Kolmogorov-Smirnov_ can be used as an analytic test.  If the residuals still do not follow a normal distribution even after a transformation such as a logarithmic transformation, use a non-parametric test resistant to non-normal distributions.   In particular, the Kruskal-Wallis test: `Kruskal.test(group, data = Data)` has the same purpose as the ANOVA: to compare three or more groups. However, it compares groups using sample medians rather than sample means. 
 <!-- Residuals should have a normal distribution in general. -->
 
 
-- **Homoscedasticity** Homogeneity in populations, the variances of distinct groups should be equal.   Homogeneity may be verified graphically using a boxplot or analytically with a statistical test such as Levene's or Bartlett's. If the null hypothesis of these tests is rejected, then Welch's ANOVA is an alternative to the when the assumption of equal variances is violated. In R, `oneway.test(variable ~ group, var.equal = FALSE)`.  Note: Welch ANOVA does not need homogeneity among the variances, but normality is still assumed. While, Kruskal-Wallis test requires neither normalcy nor homoscedasticity of variances. 
+- **Homoscedasticity** Homogeneity in populations, the variances of distinct groups should be equal.   Homogeneity may be verified graphically using a boxplot or analytically with a statistical test such as Levene's or Bartlett's. If these tests' null hypothesis is rejected, Welch's ANOVA is an alternative to when the assumption of equal variances is violated. In R, `oneway.test(variable ~ group, var.equal = FALSE)`.  Note: Welch ANOVA does not need homogeneity among the variances, but normality is still assumed. Meanwhile, the Kruskal-Wallis test requires neither normalcy nor homoscedasticity of variances. 
 
 
 
 
 - **No Outliers**: An outlier is an observation that differs significantly from the others. If there are any significant outliers in the different groups, your ANOVA results may be skewed. There are various approaches for detecting outliers in your data, but you must choose one of the following to deal with them: 
 
-  * use a non-parametric variant (i.e., the Kruskal-Wallis test, which used median instead of mean.  Why?)
+  * Use a non-parametric variant (e.g., the Kruskal-Wallis test, which used median instead of mean. Why?).
   
   * transform your data (e.g., logarithmic or Box-Cox transformations) 
   
@@ -90,7 +90,7 @@ $\bar{y}_i=$ the sample mean of the $i$th group.
 
 $\bar{y}=$ the average of all observations.
 
-Using this notation, we identity three sums of squares.   
+Using this notation, we identify three sums of squares.   
 
 1. The **total sum of squares** of the difference between the measurements and overall mean is:
 \[
@@ -119,7 +119,7 @@ __Fisher's F test statistic__ is,
     F = \frac{{SS}_B / (k-1)}{{SS}_W /(n - k)} = \frac{{MSR}}{{MSE}}
 \]
 
-where the numerator is the mean square error in the regression (MSR) and the denominator is the mean square error in the residuals (MSE).  
+where the numerator is the mean square error in the regression (MSR), and the denominator is the mean square error in the residuals (MSE).  
 
 
 ---
@@ -175,7 +175,7 @@ folder = '/data/'
 # Load the data
 raw = read_csv(paste(getwd(),folder,'diet.csv',sep=''))
 ```
-Extract the data of interest.  In this case, we will need to create a new variable called `Loss` which is the difference between the subjects weight before beginning the diet and then six weeks after.
+Extract the data of interest.  In this case, we will need to create a new variable called `Loss`, which is the difference between the subjects weight before beginning the diet and then six weeks after.
 
 ```{r}
 Data = raw %>% 
@@ -190,7 +190,7 @@ Data$Diet = as.factor(Data$Diet)
 ```
 
 
-Split weigth loss by group for easier use.
+Split weight loss by group for easier use.
 ```{r}
 Group1 = Data %>% select(Diet,Loss) %>% filter(Diet==1)
 Group2 = Data %>% select(Diet,Loss) %>% filter(Diet==2)
@@ -273,7 +273,7 @@ boxplot(Loss ~ Diet,
  
 
 ##### __Results of EDA__  
-We see Diet 3 seems to be the "best" with both the largest average weight lost and maximum weight lost.  In addition, Diet 1 and 2 saw some weight gain. From the boxplot, there appear to be a few outliers and Diet 3 also shows higher mean.  Variance in the data seems to be mostly equal.   
+We see Diet 3 seems to be the "best" with both the largest average weight lost and maximum weight lost.  In addition, Diet 1 and 2 saw some weight gain. From the boxplot, there appear to be a few outliers, and Diet 3 also shows a higher mean.  Variance in the data seems to be mostly equal.   
 
 ---
 
@@ -291,17 +291,17 @@ Weight loss is a continuous quantitative dependent variable and diet is the inde
 
 ### __Independent Observations__
 
-We will assume, without verification, that the design of experiment was such that participants were random selection and randomly assignment to each diet.  
+We will assume, without verification, that the experiment's design involved random selection and assignment of participants to each diet.  
 
 
 ### __Outliers__
-<!-- Sourcse: 
+<!-- Sources: 
 https://statsandr.com/blog/outliers-detection-in-r/ 
 https://www.statology.org/grubbs-test-r/
 -->
 
 
-Let's check for outliers next since if present, we can remove them before checking the other assumptions.  The boxplot in <a href="#eda">EDA</a> suggests Diet 1 has two outliers.  Statistical tests for outliers include: Grubb's test, Dixon's test (small samples $n \le 25$), and Rosner's test (detect multiple outliers).
+Let's check for outliers next since if present, we can remove them before checking the other assumptions.  The boxplot in <a href="#eda">EDA</a> suggests Diet 1 has two outliers.  Statistical tests for outliers include Grubb's test, Dixon's test (small samples $n \le 25$), and Rosner's test (detect multiple outliers).
 
 
 #### Grubb's Test
@@ -329,7 +329,7 @@ The boxplots in our EDA indicate only Diet 1 has potential outliers.  We will pe
 ```{r}
 grubbs.test(Group1$Loss)
 ```
-The p-value is slightly greater than 0.05 so we will not reject the null hypothesis. If Grubb's Test suggested there were outliers present, then we could remove them using the commands below and continue our analysis and tests on the modified data `Data2`.  
+The p-value is slightly greater than 0.05 so we will not reject the null hypothesis. If Grubb's Test suggested outliers were present, we could remove them using the commands below and continue our analysis and tests on the modified data `Data2`.  
 
 ```{r}
 Outliers = boxplot.stats(Group1$Loss)$out
@@ -377,7 +377,7 @@ Maybe they are normal.
 
 
 
-Each distribution is displayed using a density plots colored by diet.  
+Each distribution is displayed using a density plot colored by diet.  
 ```{r}
 ggplot(Data) +
   aes(x = Loss, color = Diet, fill = Diet) +
@@ -398,7 +398,7 @@ ggplot(data = Data, aes(sample = Loss, col = Diet)) +
 
 ```
 
-By inspection of these plots, it appears that the  Diet 2 distribution is approximately normal. Diet 1 has a pronounced hump on the right and Diet 3 is skewed to the left. In the case of Diet 1 in particular, we can see the effect of the  two outliers reflected in all three plots. So we may have reason to question whether Diet 1 and Diet 3 are normally distributed. On the other hand, the apparent deviation from normality could have happened by chance - the result of sampling variation. This suggests  a hypothesis test, which can tell us that likelihood.
+By inspection of these plots, it appears that the  Diet 2 distribution is approximately normal. Diet 1 has a pronounced hump on the right and Diet 3 is skewed to the left. In the case of Diet 1 in particular, we can see the effect of the  two outliers reflected in all three plots. So we may have reason to question whether Diet 1 and Diet 3 are normally distributed. On the other hand, the apparent deviation from normality could have happened by chance - the result of sampling variation. This suggests  a hypothesis test, which can tell us the likelihood.
 
 #### Shapiro-Wilk's Test for Normality
 
@@ -406,7 +406,7 @@ Shapiro-Wilk's and Kolmogorov-Smirnov are two statistical tests of normality.  T
 \[
 H_0: \text{the data is normally distributed}
 \]
-Of course, the alterative hypothesis is, $H_1$: the data is **not** normally distributed.  Here we employ the Shapiro-Wilk test.  <!--  Shapiro-Wilk test is known to have better power than Kolmogorov-Smirnov test.  -->
+Of course, the alternative hypothesis is $H_1$: the data is **not** normally distributed.  Here we employ the Shapiro-Wilk test.  <!--  Shapiro-Wilk test is known to have better power than Kolmogorov-Smirnov test.  -->
 
 ```{r}
 shapiro.test(Group1$Loss)
