@@ -3,9 +3,6 @@ title: "One-way Analysis of Variance in R"
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 In this article we will examine the affect of diet on weight loss (<a href="#case">case study</a>) using analysis of variance.  First, we cover some <a href="#background">background information</a> including the <a href="#assumptions">model assumptions</a>, and <a href="#fishers">Fisher's</a> Test statistic.  
 
