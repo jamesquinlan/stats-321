@@ -1,10 +1,5 @@
 ---
 title: "One-way Analysis of Variance in R"
-author: "James Quinlan"
-date: "10/30/2021"
-output:
-  html_document: default
-  pdf_document: default
 ---
 
 
