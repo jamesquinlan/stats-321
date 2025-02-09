@@ -179,8 +179,6 @@ P(A)
 # Basic Syntax
 # load.Rdata2(filename, path)
 # load.Rdata2(filename, path=getwd())
-
-
 ```
 
 
